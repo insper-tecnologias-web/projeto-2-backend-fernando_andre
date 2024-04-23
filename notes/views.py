@@ -4,6 +4,7 @@ from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from django.http import Http404
 from .serializers import NoteSerializer
+import requests
 
 def index(request):
     if request.method == 'POST':
@@ -120,5 +121,5 @@ def api_notes(request):
 
 @api_view(['GET'])
 def api_binance(request):
-    response = request.get('https://api.binance.com/api/v3/ticker/price')
+    response = requests.get('https://api/v3/ticker/price', headers=headers)
     return Response(response.json())
