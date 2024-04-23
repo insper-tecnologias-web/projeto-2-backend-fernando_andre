@@ -19,4 +19,5 @@ urlpatterns = [
     path('produto', views.produto, name='produto'),
     path('api/notes/<int:note_id>/', views.api_note),
     path('api/notes/', views.api_notes),
+    path('api/moedas/', views.api_binance),
 ]   

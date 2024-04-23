@@ -117,3 +117,8 @@ def api_notes(request):
     notes = Note.objects.all()
     serialized_notes = NoteSerializer(notes, many=True)
     return Response(serialized_notes.data)
+
+@api_view(['GET'])
+def api_binance(request):
+    response = request.get('https://api.binance.com/api/v3/ticker/price')
+    return Response(response.json())

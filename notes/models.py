@@ -22,4 +22,11 @@ class Produto(models.Model):
     estoque = models.IntegerField(default=0)
     promocao = models.BooleanField(default=False)
 
+class Moedas(models.Model):
+    nome = models.CharField(max_length=200)
+    valor = models.DecimalField(max_digits=10, decimal_places=3)
+    quantidade = models.IntegerField(default=0)
+    def __str__(self):
+        return str(self.id) + '.' + ' ' + str(self.nome) + ' ' + str(self.valor) + ' ' + str(self.quantidade)
+
    
