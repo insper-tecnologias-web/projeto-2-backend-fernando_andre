@@ -1,0 +1,58 @@
+{% extends "notes/base.html" %}
+{% load static %}
+
+{% block content %}
+<div class="appbar">
+    <div class="appbar_esq">
+        <img src="{% static 'notes/img/logo-getit.png' %}" class="logo" />
+        <span class="subtitle">Como o Post-it, mas com outro verbo</span>
+    </div>
+    <div class="appbar_dir">
+        <div>
+            <a class="bnt_simulado" href="/voltar" name='voltar'>
+                <h3>Menu</h3>
+            </a>
+        </div>  
+    </div>
+</div>
+<main class="container">
+    <form class="form-card" method="post">
+        {% csrf_token %}
+        <input
+            class="form-card-title"
+            type="text"
+            name="nome"
+            placeholder="Nome"
+        />
+        <textarea
+            class="autoresize"
+            name="preco"
+            placeholder="Preco"
+        ></textarea>
+        <input
+            class="form-card-title"
+            type="text"
+            name="estoque"
+            placeholder="Estoque"
+        ></input>
+        <button class="btn" type="submit">Submit</button>
+    </form>
+    <div class="num_funfacts">
+        <h3>......................................</h3>
+        <h3>{{qnt_produtos}} produtos cadastrados</h3>
+        <h3>......................................</h3>
+    </div>
+    <div class="card-container">
+        {% if produtos %}
+            {% for produto in produtos %}
+            <h3>Produto:{{produto.nome}} - Preco:${{produto.preco}} - Estoque:{{produto.estoque}}</h3>
+            {% endfor %}
+        {% else %}
+            Não há nenhum produto cadastrado.
+        {% endif %}
+    </div>
+                
+</main>
+
+<script type="text/javascript" src="{% static 'notes\script\getit.js' %}"></script>
+{% endblock %}

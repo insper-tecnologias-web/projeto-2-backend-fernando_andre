@@ -1,0 +1,36 @@
+{% extends "notes/base.html" %}
+{% load static %}
+
+{% block content %}
+<div class="appbar">
+    <div class="appbar_esq">
+        <img src="{% static 'notes/img/logo-getit.png' %}" class="logo" />
+        <span class="subtitle">Como o Post-it, mas com outro verbo</span>
+    </div>
+    <div class="appbar_dir">
+        <div>
+            <a class="bnt_simulado" href="/simulado" name='simulado'>
+                <h3>Simulado</h3>
+            </a>
+        </div>
+        <div>
+            <a class="bnt_simulado" href="/voltar" name='voltar'>
+                <h3>Menu</h3>
+            </a>
+        </div>
+    </div>
+</div>
+<div class="tags_pag">
+    {% for tag in tags %}
+    <div class="bnt_simulado">
+        <a class="tag_" href="/tag_espec/{{tag.id}}" name='tag_espec'>
+            <h3>{{tag.titulo}}</h3>
+        <a href="/deleteTag/{{tag.id}}" name='simulado'>
+            <img class="botao-apaga" src="{% static 'notes\img/54324.png' %}" />
+        </a>
+    </div>
+    {% endfor %}
+</div>
+
+<script type="text/javascript" src="{% static 'notes\script\getit.js' %}"></script>
+{% endblock %}

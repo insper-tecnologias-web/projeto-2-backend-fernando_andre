@@ -1,0 +1,57 @@
+{% extends "notes/base.html" %}
+{% load static %}
+
+{% block content %}
+<div class="appbar">
+    <div class="appbar_esq">
+        <img src="{% static 'notes/img/logo-getit.png' %}" class="logo" />
+        <span class="subtitle">Como o Post-it, mas com outro verbo</span>
+    </div>
+    <div class="appbar_dir">
+        <div>
+            <a class="todasTags" href="tag" name='tag'>
+                <h3>Tags</h3>
+            </a>
+        </div>
+        <div>
+            <a class="bnt_simulado" href="voltar" name='voltar'>
+                <h3>Menu</h3>
+            </a>
+        </div>
+    </div>
+</div>
+<main class="container">
+    <form class="form-card" method="post">
+        {% csrf_token %}
+        <textarea
+            class="autoresize"
+            name="descricao"
+            placeholder="Digite o conteúdo..."
+        ></textarea>
+        <button class="btn" type="submit">submit</button>
+    </form>
+    <div class="num_funfacts">
+        <h3>{{qnt_facts}} Fun facts cadastradas</h3>
+        <h3>...................................</h3>
+    </div>
+    <div class="card-container">
+        {% if description %}
+            {% for comentario in description %}
+            <div class="comentario">
+                <h3>{{comentario.descricao}}({{comentario.curtidas}}) </h3>
+                <a href="curtir/{{comentario.id}}" name = 'like_button'>
+                    <img class="like_button" src="{% static 'notes\img/coracao.png' %}" />
+                </a>
+                <a href="deleteFact/{{comentario.id}}" name = 'deleteFact_button'>
+                    <img class="botao-apaga" src="{% static 'notes\img/54324.png' %}" />
+                </a>
+            </div>
+            {% endfor %}
+        {% else %}
+            Não há nenhum fato interessante cadastrado.
+        {% endif %}
+    </div> 
+</main>
+
+<script type="text/javascript" src="{% static 'notes\script\getit.js' %}"></script>
+{% endblock %}

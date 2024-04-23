@@ -1,0 +1,58 @@
+{% extends "notes/base.html" %}
+{% load static %}
+
+{% block content %}
+<div class="appbar">
+    <div class="appbar_esq">
+        <img src="{% static 'notes/img/logo-getit.png' %}" class="logo" />
+        <span class="subtitle">Como o Post-it, mas com outro verbo</span>
+    </div>
+    <div class="appbar_dir">
+        <div>
+            <a class="todasTags" href="tag" name='tag'>
+                <h3>Tags</h3>
+            </a>
+        </div>
+        <div>
+            <a class="bnt_simulado" href="/simulado" name='simulado'>
+                <h3>Simulado</h3>
+            </a>
+        </div>
+        <div>
+            <a class="bnt_simulado" href="/voltar" name='voltar'>
+                <h3>Menu</h3>
+            </a>
+        </div>  
+        <div>
+            <a class="bnt_simulado" href="/produto" name='pagProduto'>
+                <h3>Produtos</h3>
+            </a>
+        </div> 
+    </div>
+</div>
+<main class="container">
+    <form class="form-card" method="post">
+        {% csrf_token %}
+        <input
+            class="form-card-title"
+            type="text"
+            name="titulo"
+            placeholder="Título"
+        />
+        <textarea
+            class="autoresize"
+            name="detalhes"
+            placeholder="Digite o conteúdo..."
+        ></textarea>
+        <input
+            class="form-card-title"
+            type="text"
+            name="createTag"
+            placeholder="Digite uma tag..."
+        ></input>
+        <button class="btn" type="submit">Criar</button>
+    </form>
+</main>
+
+<script type="text/javascript" src="{% static 'notes\script\getit.js' %}"></script>
+{% endblock %}
