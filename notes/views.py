@@ -1,9 +1,9 @@
 from django.shortcuts import render, redirect
-from .models import Note, Tag, Fact, Produto
+from .models import Note, Tag, Fact, Produto, Moeda
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from django.http import Http404
-from .serializers import NoteSerializer
+from .serializers import NoteSerializer, MoedaSerializer
 import requests
 
 def index(request):
@@ -123,18 +123,26 @@ def api_notes(request):
 def api_binance(request):
     url = "https://binance43.p.rapidapi.com/ticker/price"
     headers = {
-	"X-RapidAPI-Key": "faaef0b15dmshbba959178caf68dp13952ejsnda47a593faad",
-	"X-RapidAPI-Host": "binance43.p.rapidapi.com"
+        "X-RapidAPI-Key": "faaef0b15dmshbba959178caf68dp13952ejsnda47a593faad",
+        "X-RapidAPI-Host": "binance43.p.rapidapi.com"
     }
     response = requests.get(url, headers=headers)
+
     return Response(response.json())
 
-@api_view(['GET'])
-def favoritar(request, moeda):
-    url = f"https://binance43.p.rapidapi.com/ticker/price?symbol={moeda}"
-    headers = {
-    "X-RapidAPI-Key": "faaef0b15dmshbba959178caf68dp13952ejsnda47a593faad",
-    "X-RapidAPI-Host": "binance43.p.rapidapi.com"
-    }
-    response = requests.get(url, headers=headers)
-    return Response(response.json())
+@api_view(['GET', 'POST'])
+def favoritar(request, moeda_fav):
+
+    if request.method == 'POST':
+        moeda_fav = request.data.get('symbol')
+        obj, created = Moeda.objects.get_or_create(nome=moeda_fav)
+        if not created:
+            obj.delete()
+        return Response({'message': 'Moeda favoritada com sucesso!'})
+    
+    if request.method == 'GET':
+        favs = Moeda.objects.all()
+        serialized_favs = MoedaSerializer(favs, many=True)
+        print(serialized_favs.data)
+        return Response(serialized_favs.data)
+    

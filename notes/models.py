@@ -22,10 +22,7 @@ class Produto(models.Model):
     estoque = models.IntegerField(default=0)
     promocao = models.BooleanField(default=False)
 
-class Fav(models.Model):
+class Moeda(models.Model):
     nome = models.CharField(max_length=200)
-    fav = models.BooleanField(default=False)
     def __str__(self):
-        return str(self.id) + '.' + str(self.nome) + ' ' + str(self.fav)
-
-   
+        return str(self.id) + '.' + ' ' + str(self.nome) 
