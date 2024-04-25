@@ -20,4 +20,5 @@ urlpatterns = [
     path('api/notes/<int:note_id>/', views.api_note),
     path('api/notes/', views.api_notes),
     path('api/moedas/', views.api_binance),
+    path('api/favoritar/<str:moeda>/', views.favoritar, name='favoritar'),
 ]   
