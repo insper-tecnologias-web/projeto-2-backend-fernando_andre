@@ -155,6 +155,7 @@ def favoritar(request):
         
         # Supondo que 'nome' no modelo Moeda corresponde a 'symbol' na API
         moedas_fav = [moeda for moeda in data if moeda.get('symbol') in favs]  # Verifique a correspondência de dados
-        serialized_favs = MoedaSerializer(moedas_fav, many=True)
+        transformed_data = [{'nome': moeda['symbol'], 'preco': moeda['price']} for moeda in moedas_fav]
+        serialized_favs = MoedaSerializer(transformed_data, many=True)
         return Response(serialized_favs.data)
     
