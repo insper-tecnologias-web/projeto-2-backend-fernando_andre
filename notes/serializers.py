@@ -10,4 +10,4 @@ class NoteSerializer(serializers.ModelSerializer):
 class MoedaSerializer(serializers.ModelSerializer):
     class Meta:
         model = Moeda
-        fields = ['id', 'nome']
+        fields = ['id', 'nome', 'preco']
