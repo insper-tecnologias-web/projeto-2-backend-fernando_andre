@@ -148,13 +148,13 @@ def favoritar(request):
         return Response({'message': 'Moeda favoritada com sucesso!'})
     
     if request.method == 'GET':
-        favs = Moeda.objects.values_list('nome', flat=True)  # Ajustado para obter uma lista de nomes
+        favs = list(Moeda.objects.values_list('nome', flat=True))  # Converta o QuerySet para uma lista
         data = get_binance_ticker_prices()
         if data is None:
             return Response({'error': 'Failed to fetch data from Binance'}, status=500)
         
-        moedas_fav = [moeda for moeda in data if moeda['symbol'] in favs]  # Ajuste para 'symbol'
+        # Supondo que 'nome' no modelo Moeda corresponde a 'symbol' na API
+        moedas_fav = [moeda for moeda in data if moeda.get('symbol') in favs]  # Verifique a correspondência de dados
         serialized_favs = MoedaSerializer(moedas_fav, many=True)
         return Response(serialized_favs.data)
-
     
