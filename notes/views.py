@@ -119,20 +119,27 @@ def api_notes(request):
     serialized_notes = NoteSerializer(notes, many=True)
     return Response(serialized_notes.data)
 
-@api_view(['GET'])
-def api_binance(request):
+def get_binance_ticker_prices():
     url = "https://binance43.p.rapidapi.com/ticker/price"
     headers = {
         "X-RapidAPI-Key": "faaef0b15dmshbba959178caf68dp13952ejsnda47a593faad",
         "X-RapidAPI-Host": "binance43.p.rapidapi.com"
     }
     response = requests.get(url, headers=headers)
+    if response.status_code == 200:
+        return response.json()  # Retorna uma lista de dicionários
+    return None
 
-    return Response(response.json())
+@api_view(['GET'])
+def api_binance(request):
+    data = get_binance_ticker_prices()
+    if data is not None:
+        return Response(data)
+    return Response({'error': 'Failed to fetch data'}, status=500)
+
 
 @api_view(['GET', 'POST'])
 def favoritar(request):
-
     if request.method == 'POST':
         moeda_fav = request.data.get('symbol')
         obj, created = Moeda.objects.get_or_create(nome=moeda_fav)
@@ -141,8 +148,13 @@ def favoritar(request):
         return Response({'message': 'Moeda favoritada com sucesso!'})
     
     if request.method == 'GET':
-        favs = Moeda.objects.all()
-        moedas_fav = [moeda for moeda in api_binance() if moeda['nome'] in favs]
+        favs = Moeda.objects.values_list('nome', flat=True)  # Ajustado para obter uma lista de nomes
+        data = get_binance_ticker_prices()
+        if data is None:
+            return Response({'error': 'Failed to fetch data from Binance'}, status=500)
+        
+        moedas_fav = [moeda for moeda in data if moeda['symbol'] in favs]  # Ajuste para 'symbol'
         serialized_favs = MoedaSerializer(moedas_fav, many=True)
         return Response(serialized_favs.data)
+
     
