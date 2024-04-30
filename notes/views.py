@@ -131,7 +131,7 @@ def api_binance(request):
     return Response(response.json())
 
 @api_view(['GET', 'POST'])
-def favoritar(request, moeda_fav):
+def favoritar(request):
 
     if request.method == 'POST':
         moeda_fav = request.data.get('symbol')
