@@ -142,7 +142,7 @@ def favoritar(request):
     
     if request.method == 'GET':
         favs = Moeda.objects.all()
-        serialized_favs = MoedaSerializer(favs, many=True)
-        print(serialized_favs.data)
+        moedas_fav = [moeda for moeda in api_binance() if moeda['nome'] in favs]
+        serialized_favs = MoedaSerializer(moedas_fav, many=True)
         return Response(serialized_favs.data)
     
