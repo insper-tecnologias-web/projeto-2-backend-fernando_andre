@@ -122,13 +122,11 @@ def api_notes(request):
 def get_binance_ticker_prices():
     url = "https://binance43.p.rapidapi.com/ticker/price"
     headers = {
-        "X-RapidAPI-Key": "faaef0b15dmshbba959178caf68dp13952ejsnda47a593faad",
+        'X-RapidAPI-Key': 'c06c27f11cmshd53263f593b6a13p1ad17ajsn648f55d1d8a4',
         "X-RapidAPI-Host": "binance43.p.rapidapi.com"
     }
     response = requests.get(url, headers=headers)
-    if response.status_code == 200:
-        return response.json()  # Retorna uma lista de dicionários
-    return None
+    return response.json()  # Retorna uma lista de dicionários
 
 @api_view(['GET'])
 def api_binance(request):
@@ -157,5 +155,6 @@ def favoritar(request):
         moedas_fav = [moeda for moeda in data if moeda.get('symbol') in favs]  # Verifique a correspondência de dados
         transformed_data = [{'nome': moeda['symbol'], 'preco': moeda['price']} for moeda in moedas_fav]
         serialized_favs = MoedaSerializer(transformed_data, many=True)
+        print(serialized_favs.data)
         return Response(serialized_favs.data)
     
