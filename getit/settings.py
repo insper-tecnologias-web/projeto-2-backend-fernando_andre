@@ -23,8 +23,8 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = 'django-insecure-&(%m37qu+8s#8uv=17no#bv03dcv$wfjq6@54@eisb$vjd-0$a'
 
-# SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True # mudar para False quando for para produção
+# SECURITY WARNING: don't run with   turned on in production!
+DEBUG = False # mudar para False quando for para produção
 
 # ALLOWED_HOSTS = ['projeto-1b-fernandoko3lle.onrender.com', 'localhost', '127.0.0.1', '0.0.0.0']
 ALLOWED_HOSTS = ['*']
