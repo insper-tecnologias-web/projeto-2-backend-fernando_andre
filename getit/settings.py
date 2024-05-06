@@ -116,7 +116,7 @@ CORS_ALLOWED_ORIGINS = [
 
 DATABASES = {
     'default': dj_database_url.config(
-        default='',
+        default='postgres://database_qlil_user:3Go0JjQoSSzNj3hQwurLww0y3m1ArWXZ@dpg-cos3kti0si5c739oou8g-a.oregon-postgres.render.com/database_qlil',
         conn_max_age=600,
         ssl_require=not DEBUG
     )
