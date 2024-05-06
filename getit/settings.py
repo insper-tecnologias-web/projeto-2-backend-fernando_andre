@@ -24,7 +24,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-&(%m37qu+8s#8uv=17no#bv03dcv$wfjq6@54@eisb$vjd-0$a'
 
 # SECURITY WARNING: don't run with   turned on in production!
-DEBUG = False # mudar para False quando for para produção
+DEBUG = True # mudar para False quando for para produção
 
 # ALLOWED_HOSTS = ['projeto-1b-fernandoko3lle.onrender.com', 'localhost', '127.0.0.1', '0.0.0.0']
 ALLOWED_HOSTS = ['*']
@@ -107,20 +107,20 @@ CORS_ALLOWED_ORIGINS = [
 #     }
 # }
 
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.sqlite3',
-#         'NAME': BASE_DIR / 'db.sqlite3',
-#     }
-# }
-
 DATABASES = {
-    'default': dj_database_url.config(
-        default='postgres://database_qlil_user:3Go0JjQoSSzNj3hQwurLww0y3m1ArWXZ@dpg-cos3kti0si5c739oou8g-a.oregon-postgres.render.com/database_qlil',
-        conn_max_age=600,
-        ssl_require=not DEBUG
-    )
+    'default': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3',
+    }
 }
+
+# DATABASES = {
+#     'default': dj_database_url.config(
+#         default='postgres://database_qlil_user:3Go0JjQoSSzNj3hQwurLww0y3m1ArWXZ@dpg-cos3kti0si5c739oou8g-a.oregon-postgres.render.com/database_qlil',
+#         conn_max_age=600,
+#         ssl_require=not DEBUG
+#     )
+# }
 # Password validation
 # https://docs.djangoproject.com/en/5.0/ref/settings/#auth-password-validators
 
