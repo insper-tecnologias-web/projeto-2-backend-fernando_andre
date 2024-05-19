@@ -122,7 +122,7 @@ def api_notes(request):
 def get_binance_ticker_prices():
     url = "https://binance43.p.rapidapi.com/ticker/price"
     headers = {
-        'X-RapidAPI-Key': 'c06c27f11cmshd53263f593b6a13p1ad17ajsn648f55d1d8a4',
+        'X-RapidAPI-Key': 'c30759edb4msh381f11dbf4ebed4p162a49jsnc713ebe2e4dc',
         "X-RapidAPI-Host": "binance43.p.rapidapi.com"
     }
     response = requests.get(url, headers=headers)
